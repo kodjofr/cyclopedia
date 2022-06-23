@@ -20,7 +20,7 @@ class Singer(models.Model):
 
 class Band(models.Model):
     band_name = models.CharField(max_length=20)
-    # members = 
+    members = models.ManyToManyField(Singer)
 
 
 class Song(models.Model):
@@ -33,10 +33,18 @@ class Song(models.Model):
     
     def __str__(self):
         return self.song_name
-    
+
+
+class Playlist(models.Model):
+    playlist_name = models.CharField(max_length=20)
+    created_by = models.ForeignKey(Singer, on_delete=models.CASCADE)
+    songs = models.ManyToManyField(Song)
+    songs_count = models.PositiveIntegerField()
+
 
 class Album(models.Model):
     album_name = models.CharField(max_length=20)
     release_date = models.DateField()
-    #album_songs =  
+    album_songs = models.ManyToManyField(Song)
+    
     
